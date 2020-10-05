@@ -12,6 +12,10 @@ else
 fi
 
 case $src in
+  probit) {
+    json=$(curl -sS "https://api.probit.com/api/exchange/v1/ticker?market_ids=${base^^}-${quote^^}")
+    setzer --format "$(jshon <<<"$json" -e data -e 0 -e last -u)"
+  };;
   binance) {
     json=$(curl -sS "https://www.binance.com/api/v3/ticker/price?symbol=${base^^}${quote^^}")
     setzer --format "$(jshon <<<"$json" -e price -u)"
